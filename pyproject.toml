@@ -26,10 +26,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://ashgw.github.io/fastauth/"
-Documentation = "https://ashgw.github.io/fastauth/"
-Source = "https://github.com/ashgw/fastauth"
-Changelog = "https://github.com/ashgw/fastauth/releases"
+Homepage = "https://ashgw.github.io/autheon/"
+Documentation = "https://ashgw.github.io/autheon/"
+Source = "https://github.com/ashgw/autheon"
+Changelog = "https://github.com/ashgw/autheon/releases"
 
 [build-system]
 requires = ["hatchling"]
@@ -70,7 +70,7 @@ ignore_missing_imports = true
 exclude = [
     "tests",
     "venv",
-    "fastauth/csrf",
+    "autheon/csrf",
     "scripts/commands.py"
 ]
 
@@ -119,39 +119,39 @@ parallel = true
 command_line = "-m pytest"
 source = [
     "tests",
-    "fastauth"
+    "autheon"
 ]
 disable_warnings = ["no-data-collected"]
 
 [tool.coverage.report]
 precision = 2
 omit = [
-    'fastauth\__main__.py',
+    'autheon\__main__.py',
     'tests\test_base_redirect.py',
-    'fastauth\flow\base.py', # metaclass to be ignored
-    'fastauth\exceptions.py',
-    'fastauth\authorize.py', # all related to the frameworks' native Request object
-    'fastauth\providers\spotify\schemas.py', # TODO: remove when testing them
-    'fastauth\log.py\', # TODO: remove when testing them'
+    'autheon\flow\base.py', # metaclass to be ignored
+    'autheon\exceptions.py',
+    'autheon\authorize.py', # all related to the frameworks' native Request object
+    'autheon\providers\spotify\schemas.py', # TODO: remove when testing them
+    'autheon\log.py\', # TODO: remove when testing them'
     # purge all below till basis is set
-    'fastauth\signout.py', # TODO: remove when testing them
-    'fastauth\signin.py', # TODO: remove when testing them
-    'fastauth\flow\flow.py', # TODO: remove when testing them
-    'fastauth/oauth2.py', # TODO: remove when testing them
-    'fastauth\log.py', # TODO: remove when testing them
-    'fastauth\callback.py', # TODO: remove when testing them
-    'fastauth\cookies.py', # TODO: remove when testing them
-    'fastauth\oauth2\flow.py', # TODO: remove when testing them
-    'fastauth\config.py', # TODO: remove when testing them
-    'fastauth\callbacks\signin.py', # TODO: remove when testing them
-    'fastauth\compat\constants.py', # TODO: remove when testing them
-    'fastauth\adapters\fastapi\request.py', # TODO: remove when testing them
-    'fastauth\adapters\fastapi\route.py', # TODO: remove when testing them
-    'fastauth\adapters\fastapi\flow.py', # TODO: remove when testing them
-    'fastauth\oauth2_options.py', # TODO: remove when testing them
-    'fastauth\oauth2_baseflow.py', # TODO: remove when testing them
-    'fastauth\adapters\response.py', # TODO: remove when testing them
-    'fastauth\adapters\fastapi\response.py', # TODO: remove when testing them
+    'autheon\signout.py', # TODO: remove when testing them
+    'autheon\signin.py', # TODO: remove when testing them
+    'autheon\flow\flow.py', # TODO: remove when testing them
+    'autheon/oauth2.py', # TODO: remove when testing them
+    'autheon\log.py', # TODO: remove when testing them
+    'autheon\callback.py', # TODO: remove when testing them
+    'autheon\cookies.py', # TODO: remove when testing them
+    'autheon\oauth2\flow.py', # TODO: remove when testing them
+    'autheon\config.py', # TODO: remove when testing them
+    'autheon\callbacks\signin.py', # TODO: remove when testing them
+    'autheon\compat\constants.py', # TODO: remove when testing them
+    'autheon\adapters\fastapi\request.py', # TODO: remove when testing them
+    'autheon\adapters\fastapi\route.py', # TODO: remove when testing them
+    'autheon\adapters\fastapi\flow.py', # TODO: remove when testing them
+    'autheon\oauth2_options.py', # TODO: remove when testing them
+    'autheon\oauth2_baseflow.py', # TODO: remove when testing them
+    'autheon\adapters\response.py', # TODO: remove when testing them
+    'autheon\adapters\fastapi\response.py', # TODO: remove when testing them
 
 ]
 

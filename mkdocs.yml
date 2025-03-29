@@ -1,7 +1,7 @@
 site_name: Autheon
 site_description: OAuth2 3rd party integration library for your favorite framework
-repo_url: https://github.com/ashgw/fastauth
-repo_name: ashgw/fastauth
+repo_url: https://github.com/ashgw/autheon
+repo_name: ashgw/autheon
 
 theme:
     name: material

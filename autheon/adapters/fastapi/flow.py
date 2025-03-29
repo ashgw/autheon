@@ -13,7 +13,7 @@ from autheon.signout import Signout
 from autheon.signin import SignInCallback
 from autheon.oauth2_baseflow import OAuth2Base
 from autheon.jwts.handler import JWTHandler
-from autheon.adapters.fastapi.route import FastAuthRoute
+from autheon.adapters.fastapi.route import AutheonRoute
 from autheon.csrf import CSRF
 
 
@@ -51,7 +51,7 @@ class FastAPIOAuthFlow(OAuth2Base):
         )
         CSRF.init_once(fallback_secrets=fallback_secrets)
         self.auth_route = APIRouter()
-        self.auth_route.route_class = FastAuthRoute
+        self.auth_route.route_class = AutheonRoute
         self.activate()
 
     @property

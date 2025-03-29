@@ -88,7 +88,7 @@ For more detailed documentation, visit [autheon.ashgw.me](https://autheon.ashgw.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/ashgw/fastauth/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/ashgw/autheon/blob/main/LICENSE) file for details.
 
 ```
 

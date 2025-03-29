@@ -1,90 +1,89 @@
-site_name: "FastAuth"
+site_name: "Autheon"
 site_description: "OAuth2 integration with your favorite provider for FastAPI"
 copyright: "Copyright &copy; 2024 Ashref Gwader"
 repo_name: ashgw/autheon
 repo_url: https://github.com/ashgw/autheon
 
 nav:
-  - Introduction: index.md
-  - Installation: installation.md
-  - 'Providers':
-        - providers/google.md
-        - providers/github.md
-  - 'Security':
-        - security/security.md
-        - 'JSON Web Tokens':
-              - security/JWTs/jwt.md
-        - 'PKCE':
-              - security/PKCE/pkce.md
-  - 'Configuration':
-        - configuration/conf.md
+    - Introduction: index.md
+    - Installation: installation.md
+    - "Providers":
+          - providers/google.md
+          - providers/github.md
+    - "Security":
+          - security/security.md
+          - "JSON Web Tokens":
+                - security/JWTs/jwt.md
+          - "PKCE":
+                - security/PKCE/pkce.md
+    - "Configuration":
+          - configuration/conf.md
 theme:
-  favicon: assets/favicon.png
-  title: "FastAuth"
-  font:
-    text: Inter
-    code: JetBrains Mono
-  icon:
-    repo: fontawesome/brands/github
-  name: material
-  code_theme: monokai
-  features:
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-    - navigation.tabs
-    - navigation.sections
-    - toc.integrate
-    - navigation.top
-    - content.code.annotation
-    - content.code.copy
-    - content.code.select
-    - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.expand
-    - header.autohide
-    - navigation.footer
-  language: en
-  palette:
-    - scheme: default
-      primary: black
-      accent: amber
-      toggle:
-        icon: material/lightbulb
-        name: Switch to dark mode
-    - scheme: slate
-      primary: black
-      accent: amber
-      toggle:
-        icon: material/lightbulb-outline
-        name: Switch to light mode
-
+    favicon: assets/favicon.png
+    title: "Autheon"
+    font:
+        text: Inter
+        code: JetBrains Mono
+    icon:
+        repo: fontawesome/brands/github
+    name: material
+    code_theme: monokai
+    features:
+        - search.suggest
+        - search.highlight
+        - content.tabs.link
+        - navigation.tabs
+        - navigation.sections
+        - toc.integrate
+        - navigation.top
+        - content.code.annotation
+        - content.code.copy
+        - content.code.select
+        - navigation.instant
+        - navigation.instant.prefetch
+        - navigation.expand
+        - header.autohide
+        - navigation.footer
+    language: en
+    palette:
+        - scheme: default
+          primary: black
+          accent: amber
+          toggle:
+              icon: material/lightbulb
+              name: Switch to dark mode
+        - scheme: slate
+          primary: black
+          accent: amber
+          toggle:
+              icon: material/lightbulb-outline
+              name: Switch to light mode
 
 markdown_extensions:
-  - admonition
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - admonition
+    - admonition
+    - pymdownx.highlight:
+          anchor_linenums: true
+          line_spans: __span
+          pygments_lang_class: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+    - admonition
 
 plugins:
-- search
-- mkdocstrings:
-    handlers:
-      python:
-        setup_commands:
-        - import sys
-        - sys.path.append("autheon")
-        selection:
-          docstring_style: restructured-text
-          new_path_syntax: yes
+    - search
+    - mkdocstrings:
+          handlers:
+              python:
+                  setup_commands:
+                      - import sys
+                      - sys.path.append("autheon")
+                  selection:
+                      docstring_style: restructured-text
+                      new_path_syntax: yes
 extra:
-  social:
-  - icon: fontawesome/brands/python
-    link: https://pypi.org/project/fastauth
-  - icon: fontawesome/brands/github-alt
-    link: https://github.com/ashgw/fastauth
+    social:
+        - icon: fontawesome/brands/python
+          link: https://pypi.org/project/autheon
+        - icon: fontawesome/brands/github-alt
+          link: https://github.com/ashgw/autheon
