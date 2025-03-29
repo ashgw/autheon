@@ -16,7 +16,7 @@ set -e
 
 echo "Running tests.."
 
-./scripts/coverage
+uv run pytest
 
 if [ \$? -ne 0 ]; then
     echo -e "${RED}Hook failed, push aborted! ${ENDCOLOR}"
@@ -24,7 +24,8 @@ if [ \$? -ne 0 ]; then
 fi
 
 echo "Running linter.."
-./scripts/lint
+
+uv run mypy .
 
 if [ \$? -ne 0 ]; then
     echo -e "${RED}Hook failed, push aborted! ${ENDCOLOR}"

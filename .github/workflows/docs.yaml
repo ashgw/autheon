@@ -1,35 +1,35 @@
 name: docs
 
 on:
-  push:
-    branches:
-      - main
-      - xx
-  pull_request:
-    types:
-      - opened
-      - synchronize
+    push:
+        branches:
+            - main
+            - xx
+    pull_request:
+        types:
+            - opened
+            - synchronize
 
 permissions:
-  contents: write
+    contents: write
 
 jobs:
-  docs:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v3
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-      - name: poetry setup
-        run: |
-          bash scripts/ci/poetry_setup
-      - run: mkdocs gh-deploy --force
+    docs:
+        if: github.event_name == 'push'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v4
+              with:
+                  python-version: 3.x
+            - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+            - uses: actions/cache@v3
+              with:
+                  key: mkdocs-material-${{ env.cache_id }}
+                  path: .cache
+                  restore-keys: |
+                      mkdocs-material-
+            - name: uv setusp
+              run: |
+                  bash scripts/ci/uv_setup
+            - run: mkdocs gh-deploy --force

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -x
-set -e
-coverage run
-coverage combine
-coverage report --show-missing
-coverage html

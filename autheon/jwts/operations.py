@@ -8,7 +8,6 @@ from autheon.const_data import CookieData
 from autheon.jwts.helpers import validate_secret_key
 from autheon.libtypes import JWT, UserInfo, FallbackSecrets
 from typing import Optional, Final
-from datetime import datetime
 
 JWT_MAX_AGE: Final = CookieData.JWT.max_age
 JWT_ALGORITHM: Final = ALGORITHMS.HS256

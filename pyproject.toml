@@ -3,8 +3,9 @@ name = "autheon"
 version = "0.0.0"
 description = "OAuth2 3rd party integration libray for your favorite framework"
 authors = [{ name = "Ashref Gwader", email = "oss@ashgw.me" }]
-license = "MIT"
+requires-python = "~=3.10"
 readme = "README.md"
+license = "MIT"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -16,46 +17,47 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Typing :: Typed",
 ]
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
+dependencies = [
+    "fastapi>=0.93.0,<0.94",
+    "python-jose[cryptography]>=3.1.0,<4",
+    "httpx>=0.23.2,<0.24",
+    "email-validator>=2.1.0.post1,<3",
+    "overrides>=7.6.0,<8",
+]
 
 [project.urls]
-Homepage = 'https://ashgw.github.io/fastauth/'
-Documentation = 'https://ashgw.github.io/fastauth/'
-Source = 'https://github.com/ashgw/fastauth'
-Changelog = 'https://github.com/ashgw/fastauth/releases'
+Homepage = "https://ashgw.github.io/fastauth/"
+Documentation = "https://ashgw.github.io/fastauth/"
+Source = "https://github.com/ashgw/fastauth"
+Changelog = "https://github.com/ashgw/fastauth/releases"
 
-[tool.poetry.dependencies]
-python = "^3.10"
-fastapi = "^0.93.0"
-python-jose = { version = "^3.1.0", extras = ["cryptography"] }
-httpx = "^0.23.2"
-email-validator = "^2.1.0.post1"
-overrides = "^7.6.0"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.group.dev.dependencies]
-python-dotenv = "^1.0.0"
-coverage = "^7.4.0"
-uvicorn = "^0.24.0.post1"
-pytest = "^7.4.0"
-pytest-asyncio = "^0.21.1"
-bumpversion = "^0.6.0"
-pre-commit = "^3.3.3"
-mypy = "^1.7.0"
-ruff = "^0.1.11"
-mkdocstrings = "^0.24.0"
-mkdocs-material = "^9.1.21"
-mkdocs = "^1.5.3"
-validators = "^0.22.0"
-pytest-mock = "^3.12.0"
+[dependency-groups]
+dev = [
+    "python-dotenv>=1.0.0,<2",
+    "coverage>=7.4.0,<8",
+    "uvicorn>=0.24.0.post1,<0.25",
+    "pytest>=7.4.0,<8",
+    "pytest-asyncio>=0.21.1,<0.22",
+    "bumpversion>=0.6.0,<0.7",
+    "pre-commit>=3.3.3,<4",
+    "mypy>=1.7.0,<2",
+    "ruff>=0.1.11,<0.2",
+    "mkdocstrings>=0.24.0,<0.25",
+    "mkdocs-material>=9.1.21,<10",
+    "mkdocs>=1.5.3,<2",
+    "validators>=0.22.0,<0.23",
+    "pytest-mock>=3.12.0,<4",
+]
+codegen = [
+    "datamodel-code-generator>=0.25.2,<0.26"
+]
 
-
-[tool.poetry.group.-dev.dependencies]
-datamodel-code-generator = "^0.25.2"
+[tool.uv]
+default-groups = ["dev", "codegen"]
 
 [tool.mypy]
 strict = true
@@ -68,7 +70,8 @@ ignore_missing_imports = true
 exclude = [
     "tests",
     "venv",
-    "fastauth/csrf"
+    "fastauth/csrf",
+    "scripts/commands.py"
 ]
 
 [tool.ruff]
@@ -100,7 +103,6 @@ ignore = ["E501","E203","F541"]
 fixable = ["ALL"]
 unfixable = []
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
 
 [tool.ruff.format]
 quote-style = "double"

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e && set -x
+
+# Install UV
+echo -e "\e[33mInstalling UV...\e[0m"
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Run the setup command
+python scripts/commands.py setup
+
+# Install pre-commit hooks
+python scripts/commands.py hooks
+
+echo -e "\e[32mCI environment setup complete!\e[0m"

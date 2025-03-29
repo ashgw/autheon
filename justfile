@@ -1,46 +1,51 @@
-alias i:= install
-alias l:= lint
-alias c:= coverage
-alias cn:= clean
-alias t:= test
-alias f:= format
-alias h:= set-hooks
-alias d:= serve-docs
-alias b:= build-docs
+alias i := install
+alias l := lint
+alias c := coverage
+alias cn := clean
+alias t := test
+alias f := format
+alias h := hooks
+alias d := serve-docs
+alias b := build-docs
 
 @help:
     just --list
 
 @install:
-    bash ./scripts/install
+    uv run python scripts/commands.py setup
 
 @lint:
-    ./scripts/lint
+    uv run python scripts/commands.py lint
 
 @format:
-    ./scripts/format
+    uv run python scripts/commands.py format
 
 @test:
-    ./scripts/test
+    uv run python scripts/commands.py test
 
 @coverage:
-    ./scripts/coverage
+    uv run python scripts/commands.py coverage
 
 @clean:
-    ./scripts/clean
+    uv run python scripts/commands.py clean
 
-@set-hooks:
-    ./scripts/pre-commit
-    ./scripts/pre-push
+@hooks:
+    uv run python scripts/commands.py hooks
 
 @serve-app:
-    uvicorn app.app:app --reload --port=6969
+    uv run python scripts/commands.py serve-app
 
 @serve-docs:
-    mkdocs serve
+    uv run python scripts/commands.py serve-docs
 
 @build-docs:
-    mkdocs build
+    uv run python scripts/commands.py build-docs
 
 @info:
-  echo "Running on {{arch()}} machine".
+    uv run python scripts/commands.py info
+
+@lock:
+    uv run python scripts/commands.py lock
+
+@sync:
+    uv run python scripts/commands.py sync
