@@ -1,6 +1,0 @@
-#!/bin/bash
-
-coverage erase
-rm -rf app.egg-info build .ruff_cache .pytest_cache .mypy_cache site
-
-echo -e "\e[32mCleaned!\e[0m"

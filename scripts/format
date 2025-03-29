@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-set -x
-
-ruff --exit-non-zero-on-fix --fix-only
-ruff format
-ruff format --check

@@ -1,46 +1,66 @@
-alias i:= install
-alias l:= lint
-alias c:= coverage
-alias cn:= clean
-alias t:= test
-alias f:= format
-alias h:= set-hooks
-alias d:= serve-docs
-alias b:= build-docs
+alias i := install
+alias l := lint
+alias c := coverage
+alias cn := clean
+alias t := test
+alias f := format
+alias h := hooks
+alias d := serve-docs
+alias b := build-docs
 
 @help:
     just --list
 
 @install:
-    bash ./scripts/install
+    uv venv
+    uv pip install --upgrade pip
+    uv pip install -e
+    echo -e "\e[32mDevelopment environment ready!\e[0m"
 
 @lint:
-    ./scripts/lint
+    uv run mypy .
+
 
 @format:
-    ./scripts/format
+    uv run ruff --exit-non-zero-on-fix --fix-only
+    uv run ruff format
+    uv run ruff format --check
 
 @test:
-    ./scripts/test
+    uv run pytest
 
 @coverage:
-    ./scripts/coverage
+    uv run coverage run
+    uv run coverage combine
+    uv run coverage report
+    uv run coverage html
 
 @clean:
-    ./scripts/clean
+    coverage erase
+    rm -rf app.egg-info build .ruff_cache .pytest_cache .mypy_cache site
+    echo -e "\e[32mCleaned!\e[0m"
 
-@set-hooks:
-    ./scripts/pre-commit
+@hooks:
+    uv run pre-commit install
     ./scripts/pre-push
 
 @serve-app:
-    uvicorn app.app:app --reload --port=6969
+    uv pip install uvicorn
+    uv run uvicorn app.app:app --reload --port=6969
 
 @serve-docs:
-    mkdocs serve
+    uv pip install mkdocs mkdocs-material mkdocstrings
+    uv run mkdocs serve
 
 @build-docs:
-    mkdocs build
+    uv pip install mkdocs mkdocs-material mkdocstrings
+    uv run mkdocs build
 
 @info:
-  echo "Running on {{arch()}} machine".
+    echo "Running on {{arch()}} machine"
+
+@lock:
+    uv pip compile pyproject.toml -o requirements.lock
+
+@sync:
+    uv pip sync requirements.lock
