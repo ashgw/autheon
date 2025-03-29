@@ -13,8 +13,9 @@ alias b := build-docs
 
 @install:
     uv venv
+    source .venv/bin/activate
     uv pip install --upgrade pip
-    uv pip install -e
+    uv pip install -e .
     echo -e "\e[32mDevelopment environment ready!\e[0m"
 
 @lint:
