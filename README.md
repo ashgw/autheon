@@ -1,38 +1,38 @@
-# FastAuth
-OAuth2 library for FastAPI.
-### Current providers
-- Google
-- GitHub
-- Reddit
-- Discord
-- Spotify
-### Setup
-This setup currently works, but up for change, since this project is still under development
+# Autheon
+
+Plug and play OAuth2 3rd party integration library for FastAPI
+
+> **Warning**: This project is still a Work In Progress (WIP). Expect bugs, as it hasn't been officially published yet, nor is it finished.
+
+## Installation
+
+```bash
+pip install autheon
+```
+
+## Quick Start
+
+Here's a basic example:
 
 ```python
 from fastapi import FastAPI
-
 from dotenv import load_dotenv
 from os import getenv
 
 from autheon.libtypes import UserInfo, FallbackSecrets
-
 from autheon.jwts.helpers import generate_secret
 from autheon.oauth2_options import OAuthOptions
 from autheon.providers.google.google import Google
-
 from autheon.adapters.fastapi.csrf_middleware import CSRFMitigationMiddleware
 
 load_dotenv()
 
-
-# What happens when someone logs in
+# Define what happens when a user logs in
 async def push_to_db(user_info: UserInfo) -> None:
     with open("my_db", "w") as f:
         f.write(user_info["name"])
 
-
-# One router takes care of everything
+# Configure OAuth options
 auth = OAuthOptions(
     debug=True,
     provider=Google(
@@ -57,7 +57,11 @@ app.include_router(auth)
 # Optional for OAuth flow, but highly recommended
 app.add_middleware(CSRFMitigationMiddleware)
 ```
-### Usage
+
+## Usage
+
+Define your protected routes:
+
 ```python
 @app.get("/auth/in")
 def logged():
@@ -67,8 +71,25 @@ def logged():
 def out():
     return "out"
 ```
-### Development setup
-Checkout ``justfile``
 
-### License
-[MIT](/LICENSE)
+## Supported Providers
+
+Autheon currently supports the following OAuth providers:
+
+-   Google
+-   GitHub
+-   Reddit
+-   Discord
+-   Spotify
+
+## Documentation
+
+For more detailed documentation, visit [autheon.ashgw.me](https://autheon.ashgw.me)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/ashgw/fastauth/blob/main/LICENSE) file for details.
+
+```
+
+```
