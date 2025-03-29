@@ -102,7 +102,17 @@ def serve_docs() -> int:
 
 def build_docs() -> int:
     """Build documentation."""
-    run_command(["uv", "pip", "install", "mkdocs", "mkdocs-material", "mkdocstrings"])
+    run_command(
+        [
+            "uv",
+            "pip",
+            "install",
+            "mkdocs>=1.5.3,<2.0.0",
+            "mkdocs-material>=9.1.21,<10.0.0",
+            "mkdocstrings[python]>=0.24.0,<0.25.0",
+            "mkdocs-material-extensions>=1.3.1,<2.0.0",
+        ]
+    )
     return run_command(["uv", "run", "mkdocs", "build"])
 
 
