@@ -70,7 +70,8 @@ ignore_missing_imports = true
 exclude = [
     "tests",
     "venv",
-    "fastauth/csrf"
+    "fastauth/csrf",
+    "scripts/commands.py"
 ]
 
 [tool.ruff]

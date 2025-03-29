@@ -12,56 +12,40 @@ alias b := build-docs
     just --list
 
 @install:
-    uv venv
-    source .venv/bin/activate
-    uv pip install --upgrade pip
-    uv pip install -e .
-    echo -e "\e[32mDevelopment environment ready!\e[0m"
+    uv run python scripts/commands.py setup
 
 @lint:
-    uv run mypy .
-
+    uv run python scripts/commands.py lint
 
 @format:
-    uv run ruff --exit-non-zero-on-fix --fix-only
-    uv run ruff format
-    uv run ruff format --check
+    uv run python scripts/commands.py format
 
 @test:
-    uv run pytest
+    uv run python scripts/commands.py test
 
 @coverage:
-    uv run coverage run
-    uv run coverage combine
-    uv run coverage report
-    uv run coverage html
+    uv run python scripts/commands.py coverage
 
 @clean:
-    coverage erase
-    rm -rf app.egg-info build .ruff_cache .pytest_cache .mypy_cache site
-    echo -e "\e[32mCleaned!\e[0m"
+    uv run python scripts/commands.py clean
 
 @hooks:
-    uv run pre-commit install
-    ./scripts/pre-push
+    uv run python scripts/commands.py hooks
 
 @serve-app:
-    uv pip install uvicorn
-    uv run uvicorn app.app:app --reload --port=6969
+    uv run python scripts/commands.py serve-app
 
 @serve-docs:
-    uv pip install mkdocs mkdocs-material mkdocstrings
-    uv run mkdocs serve
+    uv run python scripts/commands.py serve-docs
 
 @build-docs:
-    uv pip install mkdocs mkdocs-material mkdocstrings
-    uv run mkdocs build
+    uv run python scripts/commands.py build-docs
 
 @info:
-    echo "Running on {{arch()}} machine"
+    uv run python scripts/commands.py info
 
 @lock:
-    uv pip compile pyproject.toml -o requirements.lock
+    uv run python scripts/commands.py lock
 
 @sync:
-    uv pip sync requirements.lock
+    uv run python scripts/commands.py sync

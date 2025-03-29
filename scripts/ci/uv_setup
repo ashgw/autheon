@@ -2,23 +2,14 @@
 
 set -e && set -x
 
-# Upgrade pip
-python -m pip install --upgrade pip
-
 # Install UV
 echo -e "\e[33mInstalling UV...\e[0m"
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Create a virtual environment
-uv venv
-
-# Upgrade pip in the virtual environment
-uv pip install --upgrade pip
-
-# Install project dependencies
-uv pip install -e .
+# Run the setup command
+python scripts/commands.py setup
 
 # Install pre-commit hooks
-uv run pre-commit install
+python scripts/commands.py hooks
 
 echo -e "\e[32mCI environment setup complete!\e[0m"

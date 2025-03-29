@@ -37,10 +37,10 @@ jobs:
                   python-version: 3.11
             - name: Setup
               run: |
-                  bash scripts/ci/poetry_setup
+                  bash scripts/ci/uv_setup
 
             - name: lint
-              run: bash scripts/lint
+              run: python scripts/commands.py lint
 
     test:
         runs-on: ubuntu-latest
@@ -55,13 +55,14 @@ jobs:
             - name: Py setup
               uses: actions/setup-python@v4
               with:
-                  python-version: 3.11
-            - name: poetry setup
+                  python-version: ${{ matrix.python-version }}
+
+            - name: UV setup
               run: |
-                  bash scripts/ci/poetry_setup
+                  bash scripts/ci/uv_setup
 
             - name: test
-              run: bash scripts/test
+              run: python scripts/commands.py test
 
     coverage:
         runs-on: ubuntu-latest
@@ -73,13 +74,15 @@ jobs:
               with:
                   python-version: "3.11"
 
-            - name: poetry setup
+            - name: UV setup
               run: |
-                  bash scripts/ci/poetry_setup
+                  bash scripts/ci/uv_setup
 
-            - name: test
-              run: bash scripts/coverage
+            - name: coverage
+              run: python scripts/commands.py coverage
+
             - run: pip install smokeshow
+
             - run: smokeshow upload htmlcov
               env:
                   SMOKESHOW_GITHUB_STATUS_DESCRIPTION: CLI Coverage {coverage-percentage}
