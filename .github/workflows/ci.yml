@@ -22,6 +22,11 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    pr-summarize:
+        if: github.event_name == 'pull_request'
+        uses: ./.github/workflows/on-workflow-call-pr-summarize.yml
+        secrets: inherit
+
     format:
         uses: ./.github/workflows/on-workflow-call-format.yml
         secrets: inherit
