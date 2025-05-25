@@ -28,20 +28,9 @@ jobs:
             - run: pip install smokeshow
 
             - name: Upload coverage report
-              id: smokeshow
               run: smokeshow upload htmlcov
               env:
                   SMOKESHOW_GITHUB_STATUS_DESCRIPTION: CLI Coverage {coverage-percentage}
                   SMOKESHOW_GITHUB_COVERAGE_THRESHOLD: 80
                   SMOKESHOW_GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   SMOKESHOW_GITHUB_PR_HEAD_SHA: ${{ github.event.workflow_run.head.sha }}
-                  SMOKESHOW_GITHUB_COMMENT: true
-                  SMOKESHOW_GITHUB_COMMENT_TEMPLATE: |
-                      ## Coverage Report
-                      Coverage: {coverage-percentage}%
-                      [View detailed coverage report]({report-url})
-
-                      ### Summary
-                      - Total statements: {total-statements}
-                      - Missing statements: {missing-statements}
-                      - Excluded statements: {excluded-statements}
