@@ -5,6 +5,7 @@ on:
 
 permissions:
     contents: write
+    pull-requests: write
 
 jobs:
     coverage:
@@ -26,9 +27,24 @@ jobs:
 
             - run: pip install smokeshow
 
-            - run: smokeshow upload htmlcov
+            - name: Upload coverage report
+              id: smokeshow
+              run: smokeshow upload htmlcov
               env:
                   SMOKESHOW_GITHUB_STATUS_DESCRIPTION: CLI Coverage {coverage-percentage}
                   SMOKESHOW_GITHUB_COVERAGE_THRESHOLD: 80
                   SMOKESHOW_GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   SMOKESHOW_GITHUB_PR_HEAD_SHA: ${{ github.event.workflow_run.head.sha }}
+
+            - name: Comment coverage report
+              run: |
+                  gh pr comment ${{ github.event.pull_request.number }} --body "## Coverage Report
+                  Coverage: ${{ steps.smokeshow.outputs.coverage-percentage }}%
+                  [View detailed coverage report](${{ steps.smokeshow.outputs.report-url }})
+
+                  ### Summary
+                  - Total statements: ${{ steps.smokeshow.outputs.total-statements }}
+                  - Missing statements: ${{ steps.smokeshow.outputs.missing-statements }}
+                  - Excluded statements: ${{ steps.smokeshow.outputs.excluded-statements }}"
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
