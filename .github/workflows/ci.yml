@@ -22,6 +22,9 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    format:
+        uses: ./.github/workflows/on-workflow-call-format.yml
+        secrets: inherit
     lint:
         uses: ./.github/workflows/on-workflow-call-lint.yml
         secrets: inherit
@@ -34,7 +37,7 @@ jobs:
 
     green-light:
         if: always()
-        needs: [test, lint, test, coverage]
+        needs: [test, lint, test, coverage, format]
         runs-on: ubuntu-latest
 
         steps:
