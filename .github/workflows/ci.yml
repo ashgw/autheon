@@ -1,0 +1,45 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - main
+
+    pull_request:
+        types:
+            - opened
+            - synchronize
+
+    workflow_dispatch:
+
+permissions:
+    contents: write
+    issues: write
+    pull-requests: write
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    test:
+        uses: ./.github/workflows/test.yml
+        secrets: inherit
+
+    docs:
+        uses: ./.github/workflows/docs.yml
+        secrets: inherit
+    publish:
+        uses: ./.github/workflows/publish.yml
+        secrets: inherit
+    green-light:
+        if: always()
+        needs: [test, lint, test, coverage]
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Did the needed jobs succeed or fail ?
+              uses: re-actors/alls-green@release/v1
+              id: all-green
+              with:
+                  jobs: ${{ toJSON(needs) }}

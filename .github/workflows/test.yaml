@@ -89,15 +89,3 @@ jobs:
                   SMOKESHOW_GITHUB_COVERAGE_THRESHOLD: 80
                   SMOKESHOW_GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
                   SMOKESHOW_GITHUB_PR_HEAD_SHA: ${{ github.event.workflow_run.head.sha }}
-
-    check: # serves no purpose other than branch protection
-        if: always()
-        needs: [format, lint, test, coverage]
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Did the needed jobs succeed or fail ?
-              uses: re-actors/alls-green@release/v1
-              id: all-green
-              with:
-                  jobs: ${{ toJSON(needs) }}
