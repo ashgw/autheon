@@ -1,0 +1,22 @@
+name: CI / format
+
+on:
+    workflow_call:
+
+permissions:
+    contents: write
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-python@v4
+              with:
+                  python-version: 3.11
+            - name: Setup
+              run: |
+                  bash scripts/ci/uv_setup
+
+            - name: format
+              run: python scripts/commands.py format

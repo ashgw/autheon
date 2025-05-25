@@ -1,10 +1,7 @@
-name: publish
+name: CI / publish
 
 on:
-    push:
-        branches:
-            - main
-            - xx
+    workflow_call:
 
 jobs:
     pypi:

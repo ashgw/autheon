@@ -1,0 +1,64 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - main
+
+    pull_request:
+        types:
+            - opened
+            - synchronize
+
+    workflow_dispatch:
+
+permissions:
+    contents: write
+    issues: write
+    pull-requests: write
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    pr-summarize:
+        if: github.event_name == 'pull_request'
+        uses: ./.github/workflows/on-workflow-call-pr-summarize.yml
+        secrets: inherit
+
+    format:
+        uses: ./.github/workflows/on-workflow-call-format.yml
+        secrets: inherit
+    lint:
+        uses: ./.github/workflows/on-workflow-call-lint.yml
+        secrets: inherit
+    test:
+        uses: ./.github/workflows/on-workflow-call-test.yml
+        secrets: inherit
+    coverage:
+        uses: ./.github/workflows/on-workflow-call-coverage.yml
+        secrets: inherit
+
+    green-light:
+        if: always()
+        needs: [test, lint, test, coverage, format]
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Did the needed jobs succeed or fail ?
+              uses: re-actors/alls-green@release/v1
+              id: all-green
+              with:
+                  jobs: ${{ toJSON(needs) }}
+
+    publish:
+        if: github.ref == 'refs/heads/main'
+        needs: green-light
+        uses: ./.github/workflows/on-workflow-call-publish.yml
+        secrets: inherit
+
+    docs:
+        needs: [publish]
+        uses: ./.github/workflows/on-workflow-call-docs.yml
+        secrets: inherit
