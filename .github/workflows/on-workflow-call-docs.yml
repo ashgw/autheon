@@ -1,21 +1,12 @@
-name: docs
+name: CI / docs
 
 on:
-    push:
-        branches:
-            - main
-            - xx
-    pull_request:
-        types:
-            - opened
-            - synchronize
-
+    workflow_call:
 permissions:
     contents: write
 
 jobs:
     docs:
-        if: github.event_name == 'push'
         environment: release
         runs-on: ubuntu-latest
         steps:

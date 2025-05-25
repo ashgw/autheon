@@ -22,16 +22,16 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    lint:
+        uses: ./.github/workflows/on-workflow-call-lint.yml
+        secrets: inherit
     test:
-        uses: ./.github/workflows/test.yml
+        uses: ./.github/workflows/on-workflow-call-test.yml
+        secrets: inherit
+    coverage:
+        uses: ./.github/workflows/on-workflow-call-coverage.yml
         secrets: inherit
 
-    docs:
-        uses: ./.github/workflows/docs.yml
-        secrets: inherit
-    publish:
-        uses: ./.github/workflows/publish.yml
-        secrets: inherit
     green-light:
         if: always()
         needs: [test, lint, test, coverage]
@@ -43,3 +43,14 @@ jobs:
               id: all-green
               with:
                   jobs: ${{ toJSON(needs) }}
+
+    publish:
+        if: github.ref == 'refs/heads/main'
+        needs: green-light
+        uses: ./.github/workflows/on-workflow-call-publish.yml
+        secrets: inherit
+
+    docs:
+        needs: [publish]
+        uses: ./.github/workflows/on-workflow-call-docs.yml
+        secrets: inherit
